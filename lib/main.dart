@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_firebase/todos.dart';
 
@@ -15,19 +16,23 @@ class MyApp extends StatelessWidget {
         future: Firebase.initializeApp(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Scaffold(
-              body: Center(
-                child: Text(
-                  'Error: ${snapshot.error.toString()}',
-                  textAlign: TextAlign.center,
+            return MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: Text(
+                    'Error: ${snapshot.error.toString()}',
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             );
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
+            return MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
             );
           }
