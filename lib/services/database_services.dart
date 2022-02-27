@@ -32,6 +32,16 @@ class DatabaseService {
     }
   }
 
+  Future updateTodo(uid, String text) async {
+    try {
+      await _todosCollection.doc(uid).update({
+        'title': text,
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future deleteTodo(uid) async {
     try {
       await _todosCollection.doc(uid).delete();
@@ -42,13 +52,17 @@ class DatabaseService {
 
   List<Todo> todoFromFirestore(QuerySnapshot snapshot) {
     if (snapshot != null) {
-      return snapshot.docs.map((doc) {
-        return Todo(
-          id: doc.id,
-          title: doc['title'],
-          isDone: doc['isDone'],
-        );
-      }).toList();
+      return snapshot.docs
+          .map((doc) {
+            return Todo(
+              id: doc.id,
+              title: doc['title'],
+              isDone: doc['isDone'],
+            );
+          })
+          .toList()
+          .reversed
+          .toList();
     } else {
       return [];
     }

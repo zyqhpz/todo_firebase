@@ -14,6 +14,7 @@ class TodoList extends StatefulWidget {
 class _TodoListState extends State<TodoList> {
   bool isDone = false;
   TextEditingController _todoTitleController = TextEditingController();
+  TextEditingController _todoUpdateTitleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +99,96 @@ class _TodoListState extends State<TodoList> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  trailing: Icon(Icons.delete),
+                                  // edit icon style
+                                  trailing: IconButton(
+                                    icon: Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _todoUpdateTitleController.text =
+                                            todos[index].title;
+                                      });
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return SimpleDialog(
+                                            backgroundColor: Colors.grey[700],
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 25,
+                                                    vertical: 20),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            title: Row(
+                                              children: [
+                                                Text('Edit Todo',
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                Spacer(),
+                                                IconButton(
+                                                  icon: Icon(
+                                                    Icons.cancel,
+                                                    color: Colors.white,
+                                                    size: 25,
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            children: [
+                                              TextField(
+                                                controller:
+                                                    _todoUpdateTitleController,
+                                                autofocus: true,
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                                decoration: InputDecoration(
+                                                  hintText: 'Edit Todo',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.white),
+                                                  contentPadding:
+                                                      EdgeInsets.all(10),
+                                                ),
+                                              ),
+                                              Divider(),
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                height: 50,
+                                                child: ElevatedButton(
+                                                  child: Text(
+                                                    'Update',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  onPressed: () async {
+                                                    if (_todoUpdateTitleController
+                                                        .text.isNotEmpty) {
+                                                      await DatabaseService()
+                                                          .updateTodo(
+                                                              todos[index].id,
+                                                              _todoUpdateTitleController
+                                                                  .text);
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    }
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
                               );
                             }),
@@ -179,6 +269,44 @@ class _TodoListState extends State<TodoList> {
     );
   }
 }
+
+// class UpdateTodo extends StatefulWidget {
+//   @override
+//   // _UpdateTodoState createState() => _UpdateTodoState();
+//   // Widget build(BuildContext context) {
+//   //   return showDialog(context: context, builder: builder);
+//   // }
+//   // return showDialog
+
+//   Widget builder(BuildContext context) {
+//     return AlertDialog(
+//       title: Text('Edit Todo'),
+//       content: TextField(
+//         // if the user is editing the todo, the title will be the todo title
+//         controller: _todoTitleController,
+//         decoration: InputDecoration(
+//           hintText: 'Edit Todo',
+//         ),
+//       ),
+//       actions: [
+//         TextButton(
+//           child: Text('Cancel'),
+//           onPressed: () {
+//             Navigator.pop(context);
+//           },
+//         ),
+//         TextButton(
+//           child: Text('Save'),
+//           onPressed: () async {
+//             await DatabaseService()
+//                 .updateTodo(todo.id, _todoTitleController.text);
+//             Navigator.pop(context);
+//           },
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 class NoGlowBehavior extends ScrollBehavior {
   @override
