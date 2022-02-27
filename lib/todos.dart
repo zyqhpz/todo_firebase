@@ -270,44 +270,6 @@ class _TodoListState extends State<TodoList> {
   }
 }
 
-// class UpdateTodo extends StatefulWidget {
-//   @override
-//   // _UpdateTodoState createState() => _UpdateTodoState();
-//   // Widget build(BuildContext context) {
-//   //   return showDialog(context: context, builder: builder);
-//   // }
-//   // return showDialog
-
-//   Widget builder(BuildContext context) {
-//     return AlertDialog(
-//       title: Text('Edit Todo'),
-//       content: TextField(
-//         // if the user is editing the todo, the title will be the todo title
-//         controller: _todoTitleController,
-//         decoration: InputDecoration(
-//           hintText: 'Edit Todo',
-//         ),
-//       ),
-//       actions: [
-//         TextButton(
-//           child: Text('Cancel'),
-//           onPressed: () {
-//             Navigator.pop(context);
-//           },
-//         ),
-//         TextButton(
-//           child: Text('Save'),
-//           onPressed: () async {
-//             await DatabaseService()
-//                 .updateTodo(todo.id, _todoTitleController.text);
-//             Navigator.pop(context);
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }
-
 class NoGlowBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(
