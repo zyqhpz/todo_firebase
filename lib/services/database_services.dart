@@ -52,17 +52,13 @@ class DatabaseService {
 
   List<Todo> todoFromFirestore(QuerySnapshot snapshot) {
     if (snapshot != null) {
-      return snapshot.docs
-          .map((doc) {
-            return Todo(
-              id: doc.id,
-              title: doc['title'],
-              isDone: doc['isDone'],
-            );
-          })
-          .toList()
-          .reversed
-          .toList();
+      return snapshot.docs.map((doc) {
+        return Todo(
+          id: doc.id,
+          title: doc['title'],
+          isDone: doc['isDone'],
+        );
+      }).toList();
     } else {
       return [];
     }
