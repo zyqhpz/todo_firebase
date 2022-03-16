@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           }
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
+            title: 'My Todos',
             theme: ThemeData(
               primarySwatch: Colors.blue,
               scaffoldBackgroundColor: Colors.blueGrey[900],

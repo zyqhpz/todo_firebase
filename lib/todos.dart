@@ -37,9 +37,17 @@ class _TodoListState extends State<TodoList> {
                   Text(
                     'My Todos',
                     style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(color: Colors.black, offset: Offset(0, -5))
+                      ],
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.white,
+                      decorationThickness: 1,
+                      decorationStyle: TextDecorationStyle.solid,
+                    ),
                   ),
                   Divider(),
                   SizedBox(height: 25),
