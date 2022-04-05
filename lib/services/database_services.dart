@@ -1,7 +1,4 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../model/todo.dart';
 
 class DatabaseService {
@@ -13,6 +10,7 @@ class DatabaseService {
       return await _todosCollection.add({
         'title': title,
         'isDone': false,
+        'timestamp': DateTime.now(),
       });
     } catch (e) {
       print(e.toString());
@@ -57,6 +55,7 @@ class DatabaseService {
           id: doc.id,
           title: doc['title'],
           isDone: doc['isDone'],
+          timestamp: doc['timestamp'].toDate(),
         );
       }).toList();
     } else {
@@ -65,6 +64,9 @@ class DatabaseService {
   }
 
   Stream<List<Todo>> listTodos() {
-    return _todosCollection.snapshots().map(todoFromFirestore);
+    return _todosCollection
+        .orderBy('timestamp', descending: false)
+        .snapshots()
+        .map(todoFromFirestore);
   }
 }
