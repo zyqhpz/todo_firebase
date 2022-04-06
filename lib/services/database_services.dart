@@ -13,7 +13,7 @@ class DatabaseService {
         'timestamp': DateTime.now(),
       });
     } catch (e) {
-      print(e.toString());
+      return null;
     }
   }
 
@@ -26,7 +26,7 @@ class DatabaseService {
             .then((doc) => doc['isDone'])),
       });
     } catch (e) {
-      print(e.toString());
+      return null;
     }
   }
 
@@ -36,7 +36,7 @@ class DatabaseService {
         'title': text,
       });
     } catch (e) {
-      print(e.toString());
+      return null;
     }
   }
 
@@ -44,7 +44,7 @@ class DatabaseService {
     try {
       await _todosCollection.doc(uid).delete();
     } catch (e) {
-      print(e.toString());
+      return null;
     }
   }
 
